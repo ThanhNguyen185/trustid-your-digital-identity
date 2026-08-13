@@ -173,7 +173,7 @@ function Kyc({ onDone }: { onDone: () => void }) {
     );
   }
 
-  const s = kycSteps[step];
+  const s = kycSteps[step]!;
   return (
     <div className="flex h-full flex-col px-7 pb-8 pt-16">
       <p className="text-xs font-semibold uppercase tracking-widest text-accent">
