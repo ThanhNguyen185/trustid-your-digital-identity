@@ -39,7 +39,7 @@ export const Route = createFileRoute("/student")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: StudentApp;
+  component: StudentApp,
 });
 
 type Tab = "home" | "wallet" | "qr" | "ai" | "privacy";
