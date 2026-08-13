@@ -65,7 +65,7 @@ export function QrArt({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "grid aspect-square w-full grid-cols-13 gap-[2px] rounded-xl bg-card p-3",
+        "grid aspect-square w-full gap-[2px] rounded-xl bg-card p-3",
         className,
       )}
       style={{ gridTemplateColumns: "repeat(13, minmax(0, 1fr))" }}

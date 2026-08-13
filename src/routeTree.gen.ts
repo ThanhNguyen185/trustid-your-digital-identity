@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EnterpriseRouteImport } from './routes/enterprise'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as UniversityRouteImport } from './routes/university'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnterpriseRoute = EnterpriseRouteImport.update({
+  id: '/enterprise',
+  path: '/enterprise',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudentRoute = StudentRouteImport.update({
@@ -31,30 +37,34 @@ const UniversityRoute = UniversityRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/enterprise': typeof EnterpriseRoute
   '/student': typeof StudentRoute
   '/university': typeof UniversityRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/enterprise': typeof EnterpriseRoute
   '/student': typeof StudentRoute
   '/university': typeof UniversityRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/enterprise': typeof EnterpriseRoute
   '/student': typeof StudentRoute
   '/university': typeof UniversityRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/student' | '/university'
+  fullPaths: '/' | '/enterprise' | '/student' | '/university'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/student' | '/university'
-  id: '__root__' | '/' | '/student' | '/university'
+  to: '/' | '/enterprise' | '/student' | '/university'
+  id: '__root__' | '/' | '/enterprise' | '/student' | '/university'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EnterpriseRoute: typeof EnterpriseRoute
   StudentRoute: typeof StudentRoute
   UniversityRoute: typeof UniversityRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/enterprise': {
+      id: '/enterprise'
+      path: '/enterprise'
+      fullPath: '/enterprise'
+      preLoaderRoute: typeof EnterpriseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/student': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EnterpriseRoute: EnterpriseRoute,
   StudentRoute: StudentRoute,
   UniversityRoute: UniversityRoute,
 }
