@@ -184,3 +184,36 @@
     color: var(--color-foreground);
   }
 }
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility bg-hero-gradient {
+  background-image: var(--gradient-hero);
+}
+
+@utility bg-card-gradient {
+  background-image: var(--gradient-card);
+}
+
+@utility shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+
+@utility shadow-lift {
+  box-shadow: var(--shadow-lift);
+}
+
+@utility glass-panel {
+  background-color: color-mix(in oklab, white 12%, transparent);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in oklab, white 18%, transparent);
+}
