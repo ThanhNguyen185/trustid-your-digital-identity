@@ -14,16 +14,212 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      credentials: {
+        Row: {
+          created_at: string
+          cred_type: string
+          detail: Json
+          file_path: string | null
+          hash: string | null
+          icon: string
+          id: string
+          issued_at: string | null
+          issuer: string
+          reviewed_at: string | null
+          reviewer_note: string | null
+          status: Database["public"]["Enums"]["cred_status"]
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          cred_type: string
+          detail?: Json
+          file_path?: string | null
+          hash?: string | null
+          icon?: string
+          id?: string
+          issued_at?: string | null
+          issuer: string
+          reviewed_at?: string | null
+          reviewer_note?: string | null
+          status?: Database["public"]["Enums"]["cred_status"]
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          cred_type?: string
+          detail?: Json
+          file_path?: string | null
+          hash?: string | null
+          icon?: string
+          id?: string
+          issued_at?: string | null
+          issuer?: string
+          reviewed_at?: string | null
+          reviewer_note?: string | null
+          status?: Database["public"]["Enums"]["cred_status"]
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      kyc_submissions: {
+        Row: {
+          ai_result: Json | null
+          created_at: string
+          id: string
+          id_doc_path: string | null
+          note: string | null
+          score: number | null
+          selfie_path: string | null
+          status: Database["public"]["Enums"]["verify_status"]
+          user_id: string
+        }
+        Insert: {
+          ai_result?: Json | null
+          created_at?: string
+          id?: string
+          id_doc_path?: string | null
+          note?: string | null
+          score?: number | null
+          selfie_path?: string | null
+          status?: Database["public"]["Enums"]["verify_status"]
+          user_id: string
+        }
+        Update: {
+          ai_result?: Json | null
+          created_at?: string
+          id?: string
+          id_doc_path?: string | null
+          note?: string | null
+          score?: number | null
+          selfie_path?: string | null
+          status?: Database["public"]["Enums"]["verify_status"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          did: string
+          dob: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          identity_score: number | null
+          identity_status: Database["public"]["Enums"]["verify_status"]
+          major: string | null
+          school: string | null
+          student_code: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          did?: string
+          dob?: string | null
+          email?: string | null
+          full_name?: string | null
+          id: string
+          identity_score?: number | null
+          identity_status?: Database["public"]["Enums"]["verify_status"]
+          major?: string | null
+          school?: string | null
+          student_code?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          did?: string
+          dob?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          identity_score?: number | null
+          identity_status?: Database["public"]["Enums"]["verify_status"]
+          major?: string | null
+          school?: string | null
+          student_code?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      share_links: {
+        Row: {
+          created_at: string
+          credential_ids: string[]
+          expires_at: string
+          fields: string[]
+          id: string
+          org: string | null
+          purpose: string | null
+          revoked: boolean
+          token: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          credential_ids?: string[]
+          expires_at?: string
+          fields?: string[]
+          id?: string
+          org?: string | null
+          purpose?: string | null
+          revoked?: boolean
+          token?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          credential_ids?: string[]
+          expires_at?: string
+          fields?: string[]
+          id?: string
+          org?: string | null
+          purpose?: string | null
+          revoked?: boolean
+          token?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "student" | "university" | "admin"
+      cred_status: "pending" | "verified" | "revoked"
+      verify_status: "unverified" | "pending" | "verified" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +346,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["student", "university", "admin"],
+      cred_status: ["pending", "verified", "revoked"],
+      verify_status: ["unverified", "pending", "verified", "rejected"],
+    },
   },
 } as const
