@@ -24,3 +24,9 @@ Dữ liệu mẫu bổ sung (sinh viên, log xác minh, người dùng nội b�
 - State: `active` tab + state cục bộ trong từng component tab; các nút hành động (phát hành/thu hồi/duyệt) cập nhật state chung của danh sách credential.
 - Không đổi backend, không đụng route khác; chỉ frontend/mock data.
 - Chạy ESLint sau khi sửa và khắc phục hết cảnh báo.
+
+## Sửa lỗi build đang tồn đọng (làm trước)
+`src/lib/student.functions.ts` hiện chặn build:
+- Thêm hàm `verifyCredentialDoc` còn thiếu vào `src/lib/ekyc.server.ts` (dùng Lovable AI để đọc ảnh văn bằng, trả về `{ valid, confidence, issuer, title, issued_at, reason }`).
+- Ép kiểu `ai_result` sang `Json` (`as unknown as Json`) thay vì `Record<string, unknown>`.
+- Khai báo `profilePatch` theo kiểu `TablesUpdate<'profiles'>` thay vì `Record<string, unknown>`.
