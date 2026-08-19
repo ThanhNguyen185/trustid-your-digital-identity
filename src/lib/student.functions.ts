@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import type { Json, TablesUpdate } from "@/integrations/supabase/types";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import {
   dataUrlToBytes,
@@ -41,19 +42,19 @@ export const submitKyc = createServerFn({ method: "POST" })
       user_id: userId,
       id_doc_path: idPath,
       selfie_path: selfiePath,
-      ai_result: result as unknown as Record<string, unknown>,
+      ai_result: result as unknown as Json,
       score: result.face_match_score,
       status,
       note: result.reason,
     });
 
-    const profilePatch: Record<string, unknown> = {
+    const profilePatch: TablesUpdate<"profiles"> = {
       identity_status: status,
       identity_score: result.face_match_score,
       updated_at: new Date().toISOString(),
     };
-    if (result.full_name) profilePatch["full_name"] = result.full_name;
-    if (result.dob && /^\d{4}-\d{2}-\d{2}$/.test(result.dob)) profilePatch["dob"] = result.dob;
+    if (result.full_name) profilePatch.full_name = result.full_name;
+    if (result.dob && /^\d{4}-\d{2}-\d{2}$/.test(result.dob)) profilePatch.dob = result.dob;
     await supabase.from("profiles").update(profilePatch).eq("id", userId);
 
     return { status, result };

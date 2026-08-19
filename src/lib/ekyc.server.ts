@@ -133,3 +133,43 @@ export async function sha256Hex(input: string): Promise<string> {
       .join("")
   );
 }
+
+export type CredentialCheck = {
+  verdict: "verified" | "pending" | "rejected";
+  confidence: number;
+  reason: string;
+};
+
+export async function verifyCredentialDoc(
+  credential: unknown,
+  documentImage?: string,
+): Promise<CredentialCheck> {
+  const userContent: unknown[] = [
+    { type: "text", text: `Thông tin credential do sinh viên khai báo: ${JSON.stringify(credential)}` },
+  ];
+  if (documentImage?.startsWith("data:image/")) {
+    userContent.push({ type: "image_url", image_url: { url: documentImage } });
+  }
+
+  const raw = await chat({
+    model: "google/gemini-3.5-flash",
+    messages: [
+      {
+        role: "system",
+        content:
+          "Bạn là hệ thống thẩm định văn bằng/chứng chỉ. Đối chiếu thông tin khai báo với ảnh tài liệu (nếu có), " +
+          "phát hiện dấu hiệu chỉnh sửa, sai lệch tên đơn vị cấp, ngày cấp bất thường. " +
+          'Chỉ trả về JSON: {"verdict":"verified"|"pending"|"rejected","confidence":number(0-100),"reason":string}. ' +
+          "verified khi tài liệu rõ ràng và khớp khai báo; rejected khi phát hiện giả mạo rõ ràng; còn lại pending. " +
+          "Trường reason viết bằng tiếng Việt, ngắn gọn.",
+      },
+      { role: "user", content: userContent },
+    ],
+  });
+  const parsed = parseJson<CredentialCheck>(raw);
+  return {
+    verdict: parsed.verdict === "verified" || parsed.verdict === "rejected" ? parsed.verdict : "pending",
+    confidence: Math.max(0, Math.min(100, Number(parsed.confidence) || 0)),
+    reason: parsed.reason ?? "",
+  };
+}
