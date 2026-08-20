@@ -4,12 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { QrArt, ScoreRing, SectionTitle, StatusPill } from "@/components/trustid/ui-bits";
-import {
-  candidates,
-  credentials,
-  student,
-  verificationChecks,
-} from "@/lib/trustid-data";
+import { candidates, credentials, student, verificationChecks } from "@/lib/trustid-data";
 
 export const Route = createFileRoute("/enterprise")({
   head: () => ({
@@ -23,7 +18,8 @@ export const Route = createFileRoute("/enterprise")({
       { property: "og:title", content: "Dashboard doanh nghiệp – TrustID AI" },
       {
         property: "og:description",
-        content: "Xác minh credential, kiểm tra trạng thái hiệu lực và toàn vẹn blockchain tức thì.",
+        content:
+          "Xác minh credential, kiểm tra trạng thái hiệu lực và toàn vẹn blockchain tức thì.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -55,19 +51,79 @@ const stats = [
 ];
 
 const applicants = [
-  { name: "Nguyễn Văn A", role: "Data Analyst", school: "Đại học X", state: "Đã xác minh", stage: "Phỏng vấn vòng 2" },
-  { name: "Trần Thị B", role: "Data Analyst", school: "Đại học Y", state: "Đã xác minh", stage: "Sàng lọc hồ sơ" },
-  { name: "Lê Minh C", role: "Business Analyst", school: "Đại học X", state: "Chờ xác minh", stage: "Mới ứng tuyển" },
-  { name: "Phạm Quốc D", role: "Finance Intern", school: "Đại học Z", state: "Không hợp lệ", stage: "Dừng hồ sơ" },
-  { name: "Vũ Hà E", role: "Data Analyst", school: "Đại học Y", state: "Đã xác minh", stage: "Đề nghị nhận việc" },
+  {
+    name: "Nguyễn Văn A",
+    role: "Data Analyst",
+    school: "Đại học X",
+    state: "Đã xác minh",
+    stage: "Phỏng vấn vòng 2",
+  },
+  {
+    name: "Trần Thị B",
+    role: "Data Analyst",
+    school: "Đại học Y",
+    state: "Đã xác minh",
+    stage: "Sàng lọc hồ sơ",
+  },
+  {
+    name: "Lê Minh C",
+    role: "Business Analyst",
+    school: "Đại học X",
+    state: "Chờ xác minh",
+    stage: "Mới ứng tuyển",
+  },
+  {
+    name: "Phạm Quốc D",
+    role: "Finance Intern",
+    school: "Đại học Z",
+    state: "Không hợp lệ",
+    stage: "Dừng hồ sơ",
+  },
+  {
+    name: "Vũ Hà E",
+    role: "Data Analyst",
+    school: "Đại học Y",
+    state: "Đã xác minh",
+    stage: "Đề nghị nhận việc",
+  },
 ];
 
 const verifyHistory = [
-  { id: "VC-2026-000184", name: "Nguyễn Văn A", at: "18/08/2026 09:12", by: "hr.linh@abc.vn", result: "Hợp lệ" },
-  { id: "VC-2026-000185", name: "Nguyễn Văn A", at: "18/08/2026 09:12", by: "hr.linh@abc.vn", result: "Hợp lệ" },
-  { id: "VC-2026-000201", name: "Trần Thị B", at: "17/08/2026 16:40", by: "hr.nam@abc.vn", result: "Hợp lệ" },
-  { id: "VC-2025-008812", name: "Phạm Quốc D", at: "16/08/2026 11:05", by: "hr.nam@abc.vn", result: "Đã thu hồi" },
-  { id: "VC-2025-004417", name: "Vũ Hà E", at: "15/08/2026 08:22", by: "api-key-prod", result: "Hợp lệ" },
+  {
+    id: "VC-2026-000184",
+    name: "Nguyễn Văn A",
+    at: "18/08/2026 09:12",
+    by: "hr.linh@abc.vn",
+    result: "Hợp lệ",
+  },
+  {
+    id: "VC-2026-000185",
+    name: "Nguyễn Văn A",
+    at: "18/08/2026 09:12",
+    by: "hr.linh@abc.vn",
+    result: "Hợp lệ",
+  },
+  {
+    id: "VC-2026-000201",
+    name: "Trần Thị B",
+    at: "17/08/2026 16:40",
+    by: "hr.nam@abc.vn",
+    result: "Hợp lệ",
+  },
+  {
+    id: "VC-2025-008812",
+    name: "Phạm Quốc D",
+    at: "16/08/2026 11:05",
+    by: "hr.nam@abc.vn",
+    result: "Đã thu hồi",
+  },
+  {
+    id: "VC-2025-004417",
+    name: "Vũ Hà E",
+    at: "15/08/2026 08:22",
+    by: "api-key-prod",
+    result: "Hợp lệ",
+  },
 ];
 
 const stateTone: Record<string, string> = {
@@ -80,13 +136,17 @@ const stateTone: Record<string, string> = {
 
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`rounded-2xl border border-border bg-card p-6 shadow-soft ${className}`}>{children}</div>
+    <div className={`rounded-2xl border border-border bg-card p-6 shadow-soft ${className}`}>
+      {children}
+    </div>
   );
 }
 
 function Tag({ value }: { value: string }) {
   return (
-    <span className={`inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${stateTone[value] ?? "bg-muted text-muted-foreground"}`}>
+    <span
+      className={`inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${stateTone[value] ?? "bg-muted text-muted-foreground"}`}
+    >
       {value}
     </span>
   );
@@ -137,7 +197,9 @@ function EnterpriseDashboard() {
               key={n}
               onClick={() => setActive(n)}
               className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-medium ${
-                active === n ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground"
+                active === n
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-border text-muted-foreground"
               }`}
             >
               {n}
@@ -173,19 +235,32 @@ function Overview({ onGo }: { onGo: (t: Tab) => void }) {
 
       <section className="mt-8 grid gap-6 xl:grid-cols-[1.3fr_1fr]">
         <Card>
-          <SectionTitle title="Hoạt động xác minh gần đây" desc="5 lượt xác minh mới nhất của tài khoản doanh nghiệp." />
+          <SectionTitle
+            title="Hoạt động xác minh gần đây"
+            desc="5 lượt xác minh mới nhất của tài khoản doanh nghiệp."
+          />
           <ul className="divide-y divide-border">
             {verifyHistory.map((h) => (
-              <li key={h.id + h.at} className="flex items-center justify-between gap-3 py-3 text-sm">
+              <li
+                key={h.id + h.at}
+                className="flex items-center justify-between gap-3 py-3 text-sm"
+              >
                 <div className="min-w-0">
                   <p className="truncate font-semibold">{h.name}</p>
-                  <p className="font-mono text-[11px] text-muted-foreground">{h.id} · {h.at}</p>
+                  <p className="font-mono text-[11px] text-muted-foreground">
+                    {h.id} · {h.at}
+                  </p>
                 </div>
                 <Tag value={h.result} />
               </li>
             ))}
           </ul>
-          <Button variant="outline" size="sm" className="mt-4" onClick={() => onGo("Lịch sử xác minh")}>
+          <Button
+            variant="outline"
+            size="sm"
+            className="mt-4"
+            onClick={() => onGo("Lịch sử xác minh")}
+          >
             Xem toàn bộ lịch sử
           </Button>
         </Card>
@@ -193,20 +268,26 @@ function Overview({ onGo }: { onGo: (t: Tab) => void }) {
         <Card>
           <h2 className="text-lg font-bold">Thao tác nhanh</h2>
           <div className="mt-4 grid gap-2">
-            {(["Xác minh ứng viên", "Đối sánh việc làm", "Phát hành chứng nhận thực tập", "API tích hợp"] as Tab[]).map(
-              (t) => (
-                <button
-                  key={t}
-                  onClick={() => onGo(t)}
-                  className="rounded-xl border border-border px-4 py-3 text-left text-sm font-medium transition-colors hover:border-primary/60 hover:bg-primary/5"
-                >
-                  {t}
-                </button>
-              ),
-            )}
+            {(
+              [
+                "Xác minh ứng viên",
+                "Đối sánh việc làm",
+                "Phát hành chứng nhận thực tập",
+                "API tích hợp",
+              ] as Tab[]
+            ).map((t) => (
+              <button
+                key={t}
+                onClick={() => onGo(t)}
+                className="rounded-xl border border-border px-4 py-3 text-left text-sm font-medium transition-colors hover:border-primary/60 hover:bg-primary/5"
+              >
+                {t}
+              </button>
+            ))}
           </div>
           <p className="mt-5 rounded-xl bg-muted/60 p-3 text-xs text-muted-foreground">
-            Doanh nghiệp chỉ xem được phạm vi dữ liệu do ứng viên cấp quyền, mặc định hiệu lực 30 ngày.
+            Doanh nghiệp chỉ xem được phạm vi dữ liệu do ứng viên cấp quyền, mặc định hiệu lực 30
+            ngày.
           </p>
         </Card>
       </section>
@@ -219,7 +300,10 @@ function VerifyTab() {
   return (
     <section className="grid gap-6 xl:grid-cols-[1fr_1.2fr]">
       <Card>
-        <SectionTitle title="Xác minh ứng viên" desc="Quét QR, nhập mã Credential hoặc mở liên kết xác minh." />
+        <SectionTitle
+          title="Xác minh ứng viên"
+          desc="Quét QR, nhập mã Credential hoặc mở liên kết xác minh."
+        />
         <QrArt className="mx-auto max-w-[220px] border border-border" />
         <div className="mt-5 flex gap-2">
           <Input placeholder="Nhập mã Credential (VC-2026-000184)" />
@@ -250,8 +334,8 @@ function VerifyTab() {
               ))}
             </ul>
             <p className="mt-4 rounded-xl bg-muted/60 p-3 text-xs text-muted-foreground">
-              Hash đối chiếu trên blockchain khớp với credential được chia sẻ. Phạm vi chia sẻ do ứng
-              viên cấp quyền, hiệu lực 30 ngày.
+              Hash đối chiếu trên blockchain khớp với credential được chia sẻ. Phạm vi chia sẻ do
+              ứng viên cấp quyền, hiệu lực 30 ngày.
             </p>
           </>
         ) : (
@@ -272,14 +356,18 @@ function ApplicantsTab() {
       applicants.filter(
         (a) =>
           (filter === "Tất cả" || a.state === filter) &&
-          (a.name.toLowerCase().includes(q.toLowerCase()) || a.role.toLowerCase().includes(q.toLowerCase())),
+          (a.name.toLowerCase().includes(q.toLowerCase()) ||
+            a.role.toLowerCase().includes(q.toLowerCase())),
       ),
     [q, filter],
   );
 
   return (
     <Card>
-      <SectionTitle title="Quản lý ứng viên" desc="Tìm kiếm, lọc theo trạng thái xác minh và theo dõi tiến trình tuyển dụng." />
+      <SectionTitle
+        title="Quản lý ứng viên"
+        desc="Tìm kiếm, lọc theo trạng thái xác minh và theo dõi tiến trình tuyển dụng."
+      />
       <div className="flex flex-wrap gap-2">
         <Input
           className="max-w-xs"
@@ -292,7 +380,9 @@ function ApplicantsTab() {
             key={f}
             onClick={() => setFilter(f)}
             className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
-              filter === f ? "border-primary bg-primary/10 text-primary" : "border-border hover:border-primary/60"
+              filter === f
+                ? "border-primary bg-primary/10 text-primary"
+                : "border-border hover:border-primary/60"
             }`}
           >
             {f}
@@ -317,7 +407,9 @@ function ApplicantsTab() {
                 <td className="py-3 pr-3 font-semibold">{a.name}</td>
                 <td className="py-3 pr-3 text-muted-foreground">{a.role}</td>
                 <td className="py-3 pr-3 text-muted-foreground">{a.school}</td>
-                <td className="py-3 pr-3"><Tag value={a.state} /></td>
+                <td className="py-3 pr-3">
+                  <Tag value={a.state} />
+                </td>
                 <td className="py-3 text-muted-foreground">{a.stage}</td>
               </tr>
             ))}
@@ -355,7 +447,10 @@ function MatchTab() {
         {analyzed ? (
           <div className="mt-5 space-y-3">
             {candidates.map((c) => (
-              <div key={c.name} className="flex items-start gap-4 rounded-2xl border border-border p-4">
+              <div
+                key={c.name}
+                className="flex items-start gap-4 rounded-2xl border border-border p-4"
+              >
                 <ScoreRing value={c.score} />
                 <div className="min-w-0">
                   <p className="text-sm font-bold">
@@ -385,14 +480,18 @@ function MatchTab() {
             ["Chứng chỉ & ngoại ngữ", "20%"],
             ["Kinh nghiệm thực tập", "10%"],
           ].map(([k, v]) => (
-            <li key={k} className="flex items-center justify-between border-b border-border/60 pb-2">
+            <li
+              key={k}
+              className="flex items-center justify-between border-b border-border/60 pb-2"
+            >
               <span className="text-muted-foreground">{k}</span>
               <span className="font-semibold">{v}</span>
             </li>
           ))}
         </ul>
         <p className="mt-5 rounded-xl bg-accent/10 p-3 text-xs text-foreground">
-          AI chỉ hỗ trợ sàng lọc và cung cấp thông tin, không tự động ra quyết định tuyển dụng cuối cùng.
+          AI chỉ hỗ trợ sàng lọc và cung cấp thông tin, không tự động ra quyết định tuyển dụng cuối
+          cùng.
         </p>
       </Card>
     </section>
@@ -402,7 +501,9 @@ function MatchTab() {
 function CredentialTab() {
   const [q, setQ] = useState("");
   const rows = credentials.filter(
-    (c) => c.title.toLowerCase().includes(q.toLowerCase()) || c.id.toLowerCase().includes(q.toLowerCase()),
+    (c) =>
+      c.title.toLowerCase().includes(q.toLowerCase()) ||
+      c.id.toLowerCase().includes(q.toLowerCase()),
   );
   const [openId, setOpenId] = useState<string | null>(null);
   const open = rows.find((r) => r.id === openId) ?? null;
@@ -410,7 +511,10 @@ function CredentialTab() {
   return (
     <section className="grid gap-6 xl:grid-cols-[1.4fr_1fr]">
       <Card>
-        <SectionTitle title="Quản lý Credential" desc="Tra cứu credential ứng viên đã chia sẻ và kiểm tra trạng thái hiệu lực." />
+        <SectionTitle
+          title="Quản lý Credential"
+          desc="Tra cứu credential ứng viên đã chia sẻ và kiểm tra trạng thái hiệu lực."
+        />
         <Input
           className="max-w-xs"
           placeholder="Tìm theo mã hoặc tên credential…"
@@ -432,9 +536,13 @@ function CredentialTab() {
               {rows.map((c) => (
                 <tr key={c.id} className="border-b border-border/60 last:border-0">
                   <td className="py-3 pr-3 font-mono text-xs">{c.id}</td>
-                  <td className="py-3 pr-3">{c.icon} {c.title}</td>
+                  <td className="py-3 pr-3">
+                    {c.icon} {c.title}
+                  </td>
                   <td className="py-3 pr-3 text-muted-foreground">{c.issuer}</td>
-                  <td className="py-3 pr-3"><StatusPill status={c.status} /></td>
+                  <td className="py-3 pr-3">
+                    <StatusPill status={c.status} />
+                  </td>
                   <td className="py-3">
                     <Button size="sm" variant="outline" onClick={() => setOpenId(c.id)}>
                       Chi tiết
@@ -451,7 +559,9 @@ function CredentialTab() {
         <h2 className="text-lg font-bold">Chi tiết credential</h2>
         {open ? (
           <div className="mt-4 space-y-3 text-sm">
-            <p className="font-display text-lg font-bold">{open.icon} {open.title}</p>
+            <p className="font-display text-lg font-bold">
+              {open.icon} {open.title}
+            </p>
             <p className="text-xs text-muted-foreground">
               {open.issuer} · Cấp ngày {open.issuedAt}
             </p>
@@ -495,7 +605,10 @@ function InternshipTab() {
             <Input defaultValue="01/06/2026" placeholder="Từ ngày" />
             <Input defaultValue="31/08/2026" placeholder="Đến ngày" />
           </div>
-          <Textarea rows={3} defaultValue="Hoàn thành tốt: xây dựng báo cáo doanh thu tự động, hỗ trợ làm sạch dữ liệu khách hàng." />
+          <Textarea
+            rows={3}
+            defaultValue="Hoàn thành tốt: xây dựng báo cáo doanh thu tự động, hỗ trợ làm sạch dữ liệu khách hàng."
+          />
         </div>
         <Button className="mt-5 w-full" onClick={() => setIssued(true)}>
           Ký số &amp; phát hành Credential
@@ -513,7 +626,10 @@ function InternshipTab() {
               "Tạo dấu vân tay số (Hash)",
               "Blockchain ghi nhận Hash + Status",
             ].map((s) => (
-              <li key={s} className="flex items-center gap-2 rounded-lg bg-success/10 px-3 py-2 text-success">
+              <li
+                key={s}
+                className="flex items-center gap-2 rounded-lg bg-success/10 px-3 py-2 text-success"
+              >
                 ✓ {s}
               </li>
             ))}
@@ -539,14 +655,19 @@ function HistoryTab() {
   const rows = verifyHistory.filter((h) => filter === "Tất cả" || h.result === filter);
   return (
     <Card>
-      <SectionTitle title="Lịch sử xác minh" desc="Toàn bộ lượt xác minh của tài khoản doanh nghiệp, gồm cả gọi qua API." />
+      <SectionTitle
+        title="Lịch sử xác minh"
+        desc="Toàn bộ lượt xác minh của tài khoản doanh nghiệp, gồm cả gọi qua API."
+      />
       <div className="flex flex-wrap gap-2">
         {["Tất cả", "Hợp lệ", "Đã thu hồi"].map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
             className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
-              filter === f ? "border-primary bg-primary/10 text-primary" : "border-border hover:border-primary/60"
+              filter === f
+                ? "border-primary bg-primary/10 text-primary"
+                : "border-border hover:border-primary/60"
             }`}
           >
             {f}
@@ -571,7 +692,9 @@ function HistoryTab() {
                 <td className="py-3 pr-3 font-mono text-xs">{h.id}</td>
                 <td className="py-3 pr-3">{h.name}</td>
                 <td className="py-3 pr-3 text-muted-foreground">{h.by}</td>
-                <td className="py-3"><Tag value={h.result} /></td>
+                <td className="py-3">
+                  <Tag value={h.result} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -586,10 +709,15 @@ function ApiTab() {
   return (
     <section className="grid gap-6 xl:grid-cols-[1.2fr_1fr]">
       <Card>
-        <SectionTitle title="API tích hợp" desc="Kết nối TrustID AI với hệ thống ATS / HRM của doanh nghiệp." />
+        <SectionTitle
+          title="API tích hợp"
+          desc="Kết nối TrustID AI với hệ thống ATS / HRM của doanh nghiệp."
+        />
         <div className="space-y-4 text-sm">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">API Key (Production)</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              API Key (Production)
+            </p>
             <div className="mt-2 flex gap-2">
               <code className="flex-1 truncate rounded-xl bg-muted/60 px-3 py-2 font-mono text-xs">
                 {revealed ? "trustid_live_sk_9f21c8ab4d7e0356" : "trustid_live_sk_••••••••••••••••"}
@@ -600,7 +728,9 @@ function ApiTab() {
             </div>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Endpoint</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Endpoint
+            </p>
             <ul className="mt-2 space-y-2 font-mono text-xs">
               <li className="rounded-xl bg-muted/60 px-3 py-2">GET /v1/credentials/:id</li>
               <li className="rounded-xl bg-muted/60 px-3 py-2">POST /v1/verify</li>
@@ -608,9 +738,13 @@ function ApiTab() {
             </ul>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Webhook</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Webhook
+            </p>
             <Input className="mt-2" defaultValue="https://ats.abc.vn/hooks/trustid" />
-            <Button size="sm" className="mt-2">Lưu webhook</Button>
+            <Button size="sm" className="mt-2">
+              Lưu webhook
+            </Button>
           </div>
         </div>
       </Card>
@@ -624,9 +758,14 @@ function ApiTab() {
             ["Webhook ATS", "Hoạt động"],
             ["Sandbox Key", "Chưa cấu hình"],
           ].map(([k, v]) => (
-            <li key={k} className="flex items-center justify-between border-b border-border/60 pb-2">
+            <li
+              key={k}
+              className="flex items-center justify-between border-b border-border/60 pb-2"
+            >
               <span className="text-muted-foreground">{k}</span>
-              <span className={`font-semibold ${v === "Hoạt động" ? "text-success" : "text-warning-foreground"}`}>
+              <span
+                className={`font-semibold ${v === "Hoạt động" ? "text-success" : "text-warning-foreground"}`}
+              >
                 {v === "Hoạt động" ? "● " : "○ "}
                 {v}
               </span>

@@ -52,8 +52,14 @@ const roles = [
 const layers = [
   { name: "API Gateway", desc: "Xác thực request, phân quyền, điều phối dịch vụ." },
   { name: "Identity Manager", desc: "Tài khoản, danh tính, phiên đăng nhập, quyền truy cập." },
-  { name: "AI Core", desc: "OCR, Computer Vision, Face Matching/Liveness, Fraud Detection, AI Matching." },
-  { name: "Credential Layer", desc: "Tạo credential, ký số, tạo hash. Pending → Verified → Revoked." },
+  {
+    name: "AI Core",
+    desc: "OCR, Computer Vision, Face Matching/Liveness, Fraud Detection, AI Matching.",
+  },
+  {
+    name: "Credential Layer",
+    desc: "Tạo credential, ký số, tạo hash. Pending → Verified → Revoked.",
+  },
   { name: "Blockchain Layer", desc: "Hash + trạng thái, smart contract Issue → Verify → Revoke." },
   { name: "Data Layer", desc: "PostgreSQL cho nghiệp vụ, object storage mã hoá cho tài liệu." },
 ];
@@ -102,7 +108,12 @@ function Landing() {
               <Button asChild size="lg" variant="secondary">
                 <Link to="/student">Trải nghiệm app sinh viên</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/40 bg-transparent text-primary-foreground hover:bg-white/10">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-white/40 bg-transparent text-primary-foreground hover:bg-white/10"
+              >
                 <Link to="/enterprise">Xem luồng xác minh</Link>
               </Button>
             </div>
@@ -121,7 +132,9 @@ function Landing() {
           </div>
 
           <div className="glass-panel rounded-3xl p-6 text-primary-foreground">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] opacity-80">Vòng đời hồ sơ</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] opacity-80">
+              Vòng đời hồ sơ
+            </p>
             <ul className="mt-4 space-y-3 text-sm">
               {[
                 "Học tập",
@@ -158,7 +171,9 @@ function Landing() {
               className="group rounded-3xl border border-border bg-card p-6 shadow-soft transition-all hover:-translate-y-1 hover:border-accent/60 hover:shadow-lift"
             >
               <span className="text-3xl">{r.icon}</span>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-accent">{r.label}</p>
+              <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-accent">
+                {r.label}
+              </p>
               <h3 className="mt-1 text-lg font-bold">{r.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{r.desc}</p>
               <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">

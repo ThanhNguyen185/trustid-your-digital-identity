@@ -30,7 +30,8 @@ async function chat(body: unknown): Promise<string> {
   });
   const text = await res.text();
   if (!res.ok) {
-    if (res.status === 429) throw new Error("Hệ thống AI đang quá tải, vui lòng thử lại sau ít phút.");
+    if (res.status === 429)
+      throw new Error("Hệ thống AI đang quá tải, vui lòng thử lại sau ít phút.");
     if (res.status === 402) throw new Error("Hạn mức AI đã hết, vui lòng nạp thêm credits.");
     throw new Error(`AI lỗi (${res.status}): ${text.slice(0, 300)}`);
   }
@@ -39,7 +40,10 @@ async function chat(body: unknown): Promise<string> {
 }
 
 function parseJson<T>(raw: string): T {
-  const cleaned = raw.replace(/```json/gi, "").replace(/```/g, "").trim();
+  const cleaned = raw
+    .replace(/```json/gi, "")
+    .replace(/```/g, "")
+    .trim();
   const start = cleaned.indexOf("{");
   const end = cleaned.lastIndexOf("}");
   if (start === -1 || end === -1) throw new Error("AI trả về dữ liệu không hợp lệ");
@@ -81,10 +85,23 @@ export async function runKycCheck(idImage: string, selfie: string): Promise<KycA
 }
 
 export type CareerAnalysis = {
-  jobs: { title: string; company: string; score: number; matched: string[]; missing: string[]; reason: string }[];
+  jobs: {
+    title: string;
+    company: string;
+    score: number;
+    matched: string[];
+    missing: string[];
+    reason: string;
+  }[];
   skills: { skill: string; level: number; status: string }[];
   courses: string[];
-  scholarships: { name: string; provider: string; score: number; matched: string[]; missing: string[] }[];
+  scholarships: {
+    name: string;
+    provider: string;
+    score: number;
+    matched: string[];
+    missing: string[];
+  }[];
 };
 
 export async function runCareerAnalysis(payload: unknown): Promise<CareerAnalysis> {
@@ -145,7 +162,10 @@ export async function verifyCredentialDoc(
   documentImage?: string,
 ): Promise<CredentialCheck> {
   const userContent: unknown[] = [
-    { type: "text", text: `Thông tin credential do sinh viên khai báo: ${JSON.stringify(credential)}` },
+    {
+      type: "text",
+      text: `Thông tin credential do sinh viên khai báo: ${JSON.stringify(credential)}`,
+    },
   ];
   if (documentImage?.startsWith("data:image/")) {
     userContent.push({ type: "image_url", image_url: { url: documentImage } });
@@ -168,7 +188,8 @@ export async function verifyCredentialDoc(
   });
   const parsed = parseJson<CredentialCheck>(raw);
   return {
-    verdict: parsed.verdict === "verified" || parsed.verdict === "rejected" ? parsed.verdict : "pending",
+    verdict:
+      parsed.verdict === "verified" || parsed.verdict === "rejected" ? parsed.verdict : "pending",
     confidence: Math.max(0, Math.min(100, Number(parsed.confidence) || 0)),
     reason: parsed.reason ?? "",
   };

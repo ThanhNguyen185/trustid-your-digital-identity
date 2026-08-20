@@ -59,21 +59,23 @@ export function QrArt({ className }: { className?: string }) {
     const x = i % 13;
     const y = Math.floor(i / 13);
     const finder =
-      (x < 3 && y < 3) || (x > 9 && y < 3) || (x < 3 && y > 9) ? true : (x * 7 + y * 13 + x * y) % 3 === 0;
+      (x < 3 && y < 3) || (x > 9 && y < 3) || (x < 3 && y > 9)
+        ? true
+        : (x * 7 + y * 13 + x * y) % 3 === 0;
     return finder;
   });
   return (
     <div
-      className={cn(
-        "grid aspect-square w-full gap-[2px] rounded-xl bg-card p-3",
-        className,
-      )}
+      className={cn("grid aspect-square w-full gap-[2px] rounded-xl bg-card p-3", className)}
       style={{ gridTemplateColumns: "repeat(13, minmax(0, 1fr))" }}
       aria-label="Mã QR xác minh hồ sơ"
       role="img"
     >
       {cells.map((on, i) => (
-        <span key={i} className={cn("aspect-square rounded-[2px]", on ? "bg-ink" : "bg-transparent")} />
+        <span
+          key={i}
+          className={cn("aspect-square rounded-[2px]", on ? "bg-ink" : "bg-transparent")}
+        />
       ))}
     </div>
   );

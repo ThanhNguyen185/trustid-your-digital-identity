@@ -46,7 +46,7 @@ export const credentials: Credential[] = [
     issuedAt: "12/06/2026",
     status: "verified",
     hash: "0x2b18ce70a94f3d61b8027ac5e93f10d47c6a8be2",
-    detail: { GPA: "3.62 / 4.0", "Số tín chỉ": "134", "Khoá": "2022 – 2026" },
+    detail: { GPA: "3.62 / 4.0", "Số tín chỉ": "134", Khoá: "2022 – 2026" },
   },
   {
     id: "VC-2025-004417",
@@ -79,7 +79,7 @@ export const credentials: Credential[] = [
     issuedAt: "20/05/2025",
     status: "verified",
     hash: "0x0e6b39d7c1a8425fbe93077c4a10d582f6c93bb7",
-    detail: { "Đề tài": "Mô hình dự báo rủi ro tín dụng", "Cấp": "Trường" },
+    detail: { "Đề tài": "Mô hình dự báo rủi ro tín dụng", Cấp: "Trường" },
   },
   {
     id: "VC-2026-000512",
@@ -160,9 +160,27 @@ export const scholarships = [
 ];
 
 export const shareHistory = [
-  { org: "Công ty ABC", purpose: "Ứng tuyển thực tập", date: "18/06/2026", expires: "30 ngày", state: "Đang hiệu lực" },
-  { org: "Quỹ học bổng A", purpose: "Hồ sơ học bổng", date: "02/05/2026", expires: "Hết hạn", state: "Đã hết hạn" },
-  { org: "Đại học Quốc tế B", purpose: "Hồ sơ du học", date: "11/04/2026", expires: "60 ngày", state: "Đang hiệu lực" },
+  {
+    org: "Công ty ABC",
+    purpose: "Ứng tuyển thực tập",
+    date: "18/06/2026",
+    expires: "30 ngày",
+    state: "Đang hiệu lực",
+  },
+  {
+    org: "Quỹ học bổng A",
+    purpose: "Hồ sơ học bổng",
+    date: "02/05/2026",
+    expires: "Hết hạn",
+    state: "Đã hết hạn",
+  },
+  {
+    org: "Đại học Quốc tế B",
+    purpose: "Hồ sơ du học",
+    date: "11/04/2026",
+    expires: "60 ngày",
+    state: "Đang hiệu lực",
+  },
 ];
 
 export const universityStats = [
@@ -175,17 +193,65 @@ export const universityStats = [
 ];
 
 export const universityCredentials = [
-  { id: "VC-2026-000184", student: "Nguyễn Văn A", type: "Bằng tốt nghiệp", date: "12/06/2026", status: "verified" as const },
-  { id: "VC-2026-000185", student: "Nguyễn Văn A", type: "Bảng điểm", date: "12/06/2026", status: "verified" as const },
-  { id: "VC-2026-000201", student: "Trần Thị B", type: "Bằng tốt nghiệp", date: "12/06/2026", status: "pending" as const },
-  { id: "VC-2026-000202", student: "Lê Minh C", type: "Giấy xác nhận sinh viên", date: "10/06/2026", status: "verified" as const },
-  { id: "VC-2025-008812", student: "Phạm Quốc D", type: "Bảng điểm", date: "22/12/2025", status: "revoked" as const },
+  {
+    id: "VC-2026-000184",
+    student: "Nguyễn Văn A",
+    type: "Bằng tốt nghiệp",
+    date: "12/06/2026",
+    status: "verified" as const,
+  },
+  {
+    id: "VC-2026-000185",
+    student: "Nguyễn Văn A",
+    type: "Bảng điểm",
+    date: "12/06/2026",
+    status: "verified" as const,
+  },
+  {
+    id: "VC-2026-000201",
+    student: "Trần Thị B",
+    type: "Bằng tốt nghiệp",
+    date: "12/06/2026",
+    status: "pending" as const,
+  },
+  {
+    id: "VC-2026-000202",
+    student: "Lê Minh C",
+    type: "Giấy xác nhận sinh viên",
+    date: "10/06/2026",
+    status: "verified" as const,
+  },
+  {
+    id: "VC-2025-008812",
+    student: "Phạm Quốc D",
+    type: "Bảng điểm",
+    date: "22/12/2025",
+    status: "revoked" as const,
+  },
 ];
 
 export const candidates = [
-  { name: "Nguyễn Văn A", role: "Data Analyst", score: 94, verified: true, note: "Đáp ứng đầy đủ bằng cấp, kỹ năng và chứng chỉ." },
-  { name: "Trần Thị B", role: "Data Analyst", score: 89, verified: true, note: "Mạnh về SQL, thiếu kinh nghiệm tài chính." },
-  { name: "Lê Minh C", role: "Data Analyst", score: 81, verified: true, note: "Nền tảng thống kê tốt, chưa có chứng chỉ BI." },
+  {
+    name: "Nguyễn Văn A",
+    role: "Data Analyst",
+    score: 94,
+    verified: true,
+    note: "Đáp ứng đầy đủ bằng cấp, kỹ năng và chứng chỉ.",
+  },
+  {
+    name: "Trần Thị B",
+    role: "Data Analyst",
+    score: 89,
+    verified: true,
+    note: "Mạnh về SQL, thiếu kinh nghiệm tài chính.",
+  },
+  {
+    name: "Lê Minh C",
+    role: "Data Analyst",
+    score: 81,
+    verified: true,
+    note: "Nền tảng thống kê tốt, chưa có chứng chỉ BI.",
+  },
 ];
 
 export const verificationChecks = [
@@ -199,12 +265,36 @@ export const verificationChecks = [
 ];
 
 export const pipeline = [
-  { step: "1", title: "Định danh", desc: "Sinh viên xác thực giấy tờ và khuôn mặt (OCR + Liveness)." },
+  {
+    step: "1",
+    title: "Định danh",
+    desc: "Sinh viên xác thực giấy tờ và khuôn mặt (OCR + Liveness).",
+  },
   { step: "2", title: "Tải hồ sơ", desc: "Bằng cấp, bảng điểm, chứng chỉ được tải lên ví hồ sơ." },
-  { step: "3", title: "AI kiểm tra", desc: "OCR, Computer Vision, Face Matching, Fraud Detection." },
-  { step: "4", title: "Xác minh nguồn phát hành", desc: "Đối chiếu với trường đại học / tổ chức cấp." },
-  { step: "5", title: "Phát hành Credential", desc: "Hồ sơ hợp lệ trở thành Verifiable Credential có ký số." },
-  { step: "6", title: "Ghi nhận Blockchain", desc: "Lưu Hash + trạng thái, không lưu dữ liệu cá nhân." },
+  {
+    step: "3",
+    title: "AI kiểm tra",
+    desc: "OCR, Computer Vision, Face Matching, Fraud Detection.",
+  },
+  {
+    step: "4",
+    title: "Xác minh nguồn phát hành",
+    desc: "Đối chiếu với trường đại học / tổ chức cấp.",
+  },
+  {
+    step: "5",
+    title: "Phát hành Credential",
+    desc: "Hồ sơ hợp lệ trở thành Verifiable Credential có ký số.",
+  },
+  {
+    step: "6",
+    title: "Ghi nhận Blockchain",
+    desc: "Lưu Hash + trạng thái, không lưu dữ liệu cá nhân.",
+  },
   { step: "7", title: "Sinh viên chia sẻ", desc: "QR / link kèm phạm vi và thời hạn truy cập." },
-  { step: "8", title: "Doanh nghiệp xác minh", desc: "Quét QR → kiểm tra credential và trạng thái hiệu lực." },
+  {
+    step: "8",
+    title: "Doanh nghiệp xác minh",
+    desc: "Quét QR → kiểm tra credential và trạng thái hiệu lực.",
+  },
 ];

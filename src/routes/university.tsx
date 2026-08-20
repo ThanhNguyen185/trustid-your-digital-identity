@@ -50,11 +50,46 @@ type CredRow = {
 };
 
 const students = [
-  { code: "SV21001", name: "Nguyễn Văn A", major: "Khoa học dữ liệu", course: "K21", identity: "Đã định danh", creds: 4 },
-  { code: "SV21042", name: "Trần Thị B", major: "Hệ thống thông tin", course: "K21", identity: "Đã định danh", creds: 3 },
-  { code: "SV22118", name: "Lê Minh C", major: "Kinh tế", course: "K22", identity: "Chờ định danh", creds: 1 },
-  { code: "SV20077", name: "Phạm Quốc D", major: "Tài chính", course: "K20", identity: "Đã định danh", creds: 2 },
-  { code: "SV22203", name: "Vũ Hà E", major: "Khoa học dữ liệu", course: "K22", identity: "Chưa định danh", creds: 0 },
+  {
+    code: "SV21001",
+    name: "Nguyễn Văn A",
+    major: "Khoa học dữ liệu",
+    course: "K21",
+    identity: "Đã định danh",
+    creds: 4,
+  },
+  {
+    code: "SV21042",
+    name: "Trần Thị B",
+    major: "Hệ thống thông tin",
+    course: "K21",
+    identity: "Đã định danh",
+    creds: 3,
+  },
+  {
+    code: "SV22118",
+    name: "Lê Minh C",
+    major: "Kinh tế",
+    course: "K22",
+    identity: "Chờ định danh",
+    creds: 1,
+  },
+  {
+    code: "SV20077",
+    name: "Phạm Quốc D",
+    major: "Tài chính",
+    course: "K20",
+    identity: "Đã định danh",
+    creds: 2,
+  },
+  {
+    code: "SV22203",
+    name: "Vũ Hà E",
+    major: "Khoa học dữ liệu",
+    course: "K22",
+    identity: "Chưa định danh",
+    creds: 0,
+  },
 ];
 
 const issueByMonth = [
@@ -105,7 +140,11 @@ const endpoints = [
   { method: "POST", path: "/v1/credentials/issue", desc: "Phát hành credential mới" },
   { method: "POST", path: "/v1/credentials/{id}/revoke", desc: "Thu hồi credential" },
   { method: "GET", path: "/v1/credentials/{id}", desc: "Tra cứu trạng thái credential" },
-  { method: "GET", path: "/v1/students/{code}/credentials", desc: "Danh sách credential của sinh viên" },
+  {
+    method: "GET",
+    path: "/v1/students/{code}/credentials",
+    desc: "Danh sách credential của sinh viên",
+  },
 ];
 
 const apiLogs = [
@@ -123,7 +162,11 @@ const identityTone: Record<string, string> = {
 };
 
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`rounded-2xl border border-border bg-card p-6 shadow-soft ${className}`}>{children}</div>;
+  return (
+    <div className={`rounded-2xl border border-border bg-card p-6 shadow-soft ${className}`}>
+      {children}
+    </div>
+  );
 }
 
 function Tag({ value }: { value: string }) {
@@ -220,7 +263,8 @@ function StudentsTab() {
       students.filter(
         (s) =>
           (major === "Tất cả" || s.major === major) &&
-          (s.name.toLowerCase().includes(q.toLowerCase()) || s.code.toLowerCase().includes(q.toLowerCase())),
+          (s.name.toLowerCase().includes(q.toLowerCase()) ||
+            s.code.toLowerCase().includes(q.toLowerCase())),
       ),
     [q, major],
   );
@@ -229,15 +273,25 @@ function StudentsTab() {
   return (
     <div className="grid gap-6 xl:grid-cols-[1.5fr_1fr]">
       <Card>
-        <SectionTitle title="Danh sách sinh viên" desc="Tìm theo tên hoặc mã sinh viên, lọc theo ngành." />
+        <SectionTitle
+          title="Danh sách sinh viên"
+          desc="Tìm theo tên hoặc mã sinh viên, lọc theo ngành."
+        />
         <div className="mb-4 flex flex-wrap gap-2">
-          <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Tìm sinh viên…" className="max-w-xs" />
+          <Input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Tìm sinh viên…"
+            className="max-w-xs"
+          />
           {majors.map((m) => (
             <button
               key={m}
               onClick={() => setMajor(m)}
               className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
-                major === m ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground"
+                major === m
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-border text-muted-foreground"
               }`}
             >
               {m}
@@ -298,7 +352,10 @@ function StudentsTab() {
             ["Số credential", String(current.creds)],
             ["Email", `${current.code.toLowerCase()}@sv.dhx.edu.vn`],
           ].map(([k, v]) => (
-            <div key={k} className="flex justify-between gap-3 border-b border-border/60 pb-2 last:border-0">
+            <div
+              key={k}
+              className="flex justify-between gap-3 border-b border-border/60 pb-2 last:border-0"
+            >
               <span className="text-muted-foreground">{k}</span>
               <span className="text-right font-medium">{v}</span>
             </div>
@@ -310,7 +367,14 @@ function StudentsTab() {
 }
 
 /* ---------------- Tab 3: Phát hành Credential ---------------- */
-const CRED_TYPES = ["Bằng tốt nghiệp", "Bảng điểm", "Chứng chỉ", "Giấy xác nhận sinh viên", "Thành tích", "Chứng nhận thực tập"];
+const CRED_TYPES = [
+  "Bằng tốt nghiệp",
+  "Bảng điểm",
+  "Chứng chỉ",
+  "Giấy xác nhận sinh viên",
+  "Thành tích",
+  "Chứng nhận thực tập",
+];
 const ISSUE_STEPS = [
   "Kiểm tra dữ liệu sinh viên trong hệ thống đào tạo",
   "Ký số bằng khóa riêng của trường (Issuer DID)",
@@ -343,7 +407,10 @@ function IssueTab({ onIssued }: { onIssued: (row: CredRow) => void }) {
   return (
     <div className="grid gap-6 xl:grid-cols-[1.2fr_1fr]">
       <Card>
-        <SectionTitle title="Tạo Credential mới" desc="Điền thông tin và phát hành cho sinh viên." />
+        <SectionTitle
+          title="Tạo Credential mới"
+          desc="Điền thông tin và phát hành cho sinh viên."
+        />
         <div className="space-y-4">
           <label className="block text-sm">
             <span className="mb-1 block font-medium">Sinh viên</span>
@@ -368,7 +435,9 @@ function IssueTab({ onIssued }: { onIssued: (row: CredRow) => void }) {
                   key={t}
                   onClick={() => setType(t)}
                   className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
-                    type === t ? "border-primary bg-primary/10 text-primary" : "border-border hover:border-primary/60"
+                    type === t
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-border hover:border-primary/60"
                   }`}
                 >
                   {t}
@@ -387,7 +456,12 @@ function IssueTab({ onIssued }: { onIssued: (row: CredRow) => void }) {
           </label>
           <label className="block text-sm">
             <span className="mb-1 block font-medium">Ghi chú</span>
-            <Textarea rows={3} value={note} onChange={(e) => setNote(e.target.value)} placeholder="Xếp loại, số hiệu văn bằng…" />
+            <Textarea
+              rows={3}
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Xếp loại, số hiệu văn bằng…"
+            />
           </label>
 
           <Button onClick={submit}>Ký số &amp; phát hành</Button>
@@ -434,7 +508,8 @@ function ManageTab({ rows, onApprove }: { rows: CredRow[]; onApprove: (id: strin
   const list = rows.filter(
     (r) =>
       (status === "Tất cả" || r.status === status) &&
-      (r.id.toLowerCase().includes(q.toLowerCase()) || r.student.toLowerCase().includes(q.toLowerCase())),
+      (r.id.toLowerCase().includes(q.toLowerCase()) ||
+        r.student.toLowerCase().includes(q.toLowerCase())),
   );
   const open = rows.find((r) => r.id === openId) ?? null;
 
@@ -443,13 +518,20 @@ function ManageTab({ rows, onApprove }: { rows: CredRow[]; onApprove: (id: strin
       <Card>
         <SectionTitle title="Tra cứu Credential" desc="Vòng đời: Pending → Verified → Revoked." />
         <div className="mb-4 flex flex-wrap gap-2">
-          <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Mã credential hoặc tên sinh viên…" className="max-w-xs" />
+          <Input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Mã credential hoặc tên sinh viên…"
+            className="max-w-xs"
+          />
           {STATUS_FILTERS.map((s) => (
             <button
               key={s}
               onClick={() => setStatus(s)}
               className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
-                status === s ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground"
+                status === s
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-border text-muted-foreground"
               }`}
             >
               {s}
@@ -514,15 +596,22 @@ function ManageTab({ rows, onApprove }: { rows: CredRow[]; onApprove: (id: strin
               ["Issuer", "did:trustid:dhx"],
               ["Trạng thái", open.status],
             ].map(([k, v]) => (
-              <div key={k} className="flex justify-between gap-3 border-b border-border/60 pb-2 last:border-0">
+              <div
+                key={k}
+                className="flex justify-between gap-3 border-b border-border/60 pb-2 last:border-0"
+              >
                 <span className="text-muted-foreground">{k}</span>
                 <span className="text-right font-medium">{v}</span>
               </div>
             ))}
-            <p className="break-all pt-2 font-mono text-xs text-muted-foreground">{fakeHash(open.id)}</p>
+            <p className="break-all pt-2 font-mono text-xs text-muted-foreground">
+              {fakeHash(open.id)}
+            </p>
           </div>
         ) : (
-          <p className="text-sm text-muted-foreground">Chọn một credential để xem chi tiết hash và issuer.</p>
+          <p className="text-sm text-muted-foreground">
+            Chọn một credential để xem chi tiết hash và issuer.
+          </p>
         )}
       </Card>
     </div>
@@ -530,7 +619,13 @@ function ManageTab({ rows, onApprove }: { rows: CredRow[]; onApprove: (id: strin
 }
 
 /* ---------------- Tab 5: Thu hồi Credential ---------------- */
-function RevokeTab({ rows, onRevoke }: { rows: CredRow[]; onRevoke: (id: string, reason: string) => void }) {
+function RevokeTab({
+  rows,
+  onRevoke,
+}: {
+  rows: CredRow[];
+  onRevoke: (id: string, reason: string) => void;
+}) {
   const active = rows.filter((r) => r.status === "verified");
   const revoked = rows.filter((r) => r.status === "revoked");
   const [target, setTarget] = useState<string>("");
@@ -548,7 +643,10 @@ function RevokeTab({ rows, onRevoke }: { rows: CredRow[]; onRevoke: (id: string,
   return (
     <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
       <Card>
-        <SectionTitle title="Thu hồi Credential" desc="Chọn credential đang hiệu lực và nêu lý do." />
+        <SectionTitle
+          title="Thu hồi Credential"
+          desc="Chọn credential đang hiệu lực và nêu lý do."
+        />
         <label className="mb-4 block text-sm">
           <span className="mb-1 block font-medium">Credential</span>
           <select
@@ -569,14 +667,20 @@ function RevokeTab({ rows, onRevoke }: { rows: CredRow[]; onRevoke: (id: string,
         </label>
         <label className="block text-sm">
           <span className="mb-1 block font-medium">Lý do thu hồi</span>
-          <Textarea rows={3} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="Sai dữ liệu bảng điểm, phát hành nhầm…" />
+          <Textarea
+            rows={3}
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+            placeholder="Sai dữ liệu bảng điểm, phát hành nhầm…"
+          />
         </label>
 
         {confirming ? (
           <div className="mt-4 rounded-xl border border-destructive/30 bg-destructive/8 p-4 text-sm">
             <p className="font-semibold text-destructive">Xác nhận thu hồi {target}?</p>
             <p className="mt-1 text-xs text-muted-foreground">
-              Trạng thái trên blockchain chuyển sang Revoked. Doanh nghiệp quét QR sau đó sẽ thấy credential không còn hiệu lực.
+              Trạng thái trên blockchain chuyển sang Revoked. Doanh nghiệp quét QR sau đó sẽ thấy
+              credential không còn hiệu lực.
             </p>
             <div className="mt-3 flex gap-2">
               <Button size="sm" variant="destructive" onClick={submit}>
@@ -588,7 +692,12 @@ function RevokeTab({ rows, onRevoke }: { rows: CredRow[]; onRevoke: (id: string,
             </div>
           </div>
         ) : (
-          <Button className="mt-4" variant="destructive" disabled={!target || !reason.trim()} onClick={() => setConfirming(true)}>
+          <Button
+            className="mt-4"
+            variant="destructive"
+            disabled={!target || !reason.trim()}
+            onClick={() => setConfirming(true)}
+          >
             Thu hồi credential
           </Button>
         )}
@@ -609,7 +718,9 @@ function RevokeTab({ rows, onRevoke }: { rows: CredRow[]; onRevoke: (id: string,
                 <p className="mt-1">
                   {r.student} · {r.type}
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground">Lý do: {r.reason ?? "Không ghi nhận"}</p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Lý do: {r.reason ?? "Không ghi nhận"}
+                </p>
               </li>
             ))}
           </ul>
@@ -650,7 +761,10 @@ function StatsTab() {
                   <span>{w.v.toLocaleString("vi-VN")}</span>
                 </div>
                 <div className="h-2 rounded-full bg-muted">
-                  <div className="h-2 rounded-full bg-card-gradient" style={{ width: `${(w.v / max) * 100}%` }} />
+                  <div
+                    className="h-2 rounded-full bg-card-gradient"
+                    style={{ width: `${(w.v / max) * 100}%` }}
+                  />
                 </div>
               </div>
             ))}
@@ -672,7 +786,9 @@ function StatsTab() {
                 {verifiers.map((v) => (
                   <tr key={v.org} className="border-b border-border/60 last:border-0">
                     <td className="py-3 pr-3">{v.org}</td>
-                    <td className="py-3 pr-3 text-muted-foreground">{v.count.toLocaleString("vi-VN")}</td>
+                    <td className="py-3 pr-3 text-muted-foreground">
+                      {v.count.toLocaleString("vi-VN")}
+                    </td>
                     <td className="py-3 font-semibold text-success">{v.rate}%</td>
                   </tr>
                 ))}
@@ -712,7 +828,9 @@ function RolesTab() {
                     <select
                       value={u.role}
                       onChange={(e) =>
-                        setRows((r) => r.map((x) => (x.email === u.email ? { ...x, role: e.target.value } : x)))
+                        setRows((r) =>
+                          r.map((x) => (x.email === u.email ? { ...x, role: e.target.value } : x)),
+                        )
                       }
                       className="h-9 rounded-md border border-input bg-background px-2 text-sm"
                     >
@@ -783,7 +901,11 @@ function ApiTab() {
             <Button size="sm" variant="outline" onClick={() => setRevealed((v) => !v)}>
               {revealed ? "Ẩn" : "Hiện"}
             </Button>
-            <Button size="sm" variant="outline" onClick={() => void navigator.clipboard?.writeText(key)}>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => void navigator.clipboard?.writeText(key)}
+            >
               Sao chép
             </Button>
             <Button size="sm" variant="secondary">
@@ -800,7 +922,10 @@ function ApiTab() {
           <Input value={webhook} onChange={(e) => setWebhook(e.target.value)} />
           <div className="mt-3 flex flex-wrap gap-2 text-xs">
             {["credential.issued", "credential.revoked", "credential.verified"].map((e) => (
-              <span key={e} className="rounded-full bg-muted px-3 py-1 font-mono text-muted-foreground">
+              <span
+                key={e}
+                className="rounded-full bg-muted px-3 py-1 font-mono text-muted-foreground"
+              >
                 {e}
               </span>
             ))}
@@ -815,8 +940,13 @@ function ApiTab() {
         <SectionTitle title="Endpoint" desc="Base URL: https://api.trustid.ai" />
         <div className="space-y-2">
           {endpoints.map((e) => (
-            <div key={e.path} className="flex flex-wrap items-center gap-3 rounded-xl border border-border/70 px-3 py-2 text-sm">
-              <span className="rounded-md bg-primary/10 px-2 py-0.5 font-mono text-xs font-semibold text-primary">{e.method}</span>
+            <div
+              key={e.path}
+              className="flex flex-wrap items-center gap-3 rounded-xl border border-border/70 px-3 py-2 text-sm"
+            >
+              <span className="rounded-md bg-primary/10 px-2 py-0.5 font-mono text-xs font-semibold text-primary">
+                {e.method}
+              </span>
               <code className="font-mono text-xs">{e.path}</code>
               <span className="text-xs text-muted-foreground">{e.desc}</span>
             </div>
@@ -841,7 +971,11 @@ function ApiTab() {
                 <tr key={l.at + l.ep} className="border-b border-border/60 last:border-0">
                   <td className="py-3 pr-3 text-muted-foreground">{l.at}</td>
                   <td className="py-3 pr-3 font-mono text-xs">{l.ep}</td>
-                  <td className={`py-3 pr-3 font-semibold ${l.code < 300 ? "text-success" : "text-destructive"}`}>{l.code}</td>
+                  <td
+                    className={`py-3 pr-3 font-semibold ${l.code < 300 ? "text-success" : "text-destructive"}`}
+                  >
+                    {l.code}
+                  </td>
                   <td className="py-3 text-muted-foreground">{l.ms} ms</td>
                 </tr>
               ))}
@@ -909,7 +1043,9 @@ function UniversityDashboard() {
               key={n}
               onClick={() => setActive(n)}
               className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-medium ${
-                active === n ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground"
+                active === n
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-border text-muted-foreground"
               }`}
             >
               {n}
