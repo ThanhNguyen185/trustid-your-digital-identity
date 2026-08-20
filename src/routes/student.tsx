@@ -4,12 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  PhoneFrame,
-  QrArt,
-  ScoreRing,
-  StatusPill,
-} from "@/components/trustid/ui-bits";
+import { PhoneFrame, QrArt, ScoreRing, StatusPill } from "@/components/trustid/ui-bits";
 import {
   courseSuggestions,
   credentials,
@@ -62,7 +57,14 @@ function StudentApp() {
               Digital Identity Wallet: định danh, credential, chia sẻ có kiểm soát.
             </p>
           </div>
-          <Button variant="outline" onClick={() => { setStage("splash"); setTab("home"); setSelected(null); }}>
+          <Button
+            variant="outline"
+            onClick={() => {
+              setStage("splash");
+              setTab("home");
+              setSelected(null);
+            }}
+          >
             Khởi động lại demo
           </Button>
         </div>
@@ -157,8 +159,8 @@ function Kyc({ onDone }: { onDone: () => void }) {
         </span>
         <h2 className="mt-6 text-xl font-bold">Xác thực danh tính thành công</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Danh tính số của bạn đã được thiết lập. Hồ sơ có độ tin cậy thấp sẽ được chuyển sang cơ chế
-          Human-in-the-loop để nhân sự có thẩm quyền kiểm tra.
+          Danh tính số của bạn đã được thiết lập. Hồ sơ có độ tin cậy thấp sẽ được chuyển sang cơ
+          chế Human-in-the-loop để nhân sự có thẩm quyền kiểm tra.
         </p>
         <div className="mt-6 w-full rounded-2xl border border-border bg-card p-4 text-left text-xs">
           <Row k="OCR định danh" v="Đạt" />
@@ -263,7 +265,9 @@ function HomeScreen({
     <div className="space-y-6">
       <div className="rounded-2xl bg-card-gradient p-5 text-primary-foreground shadow-soft">
         <p className="text-xs opacity-80">Hồ sơ học tập số</p>
-        <p className="mt-1 font-display text-3xl font-bold">{credentials.filter((c) => c.status === "verified").length}</p>
+        <p className="mt-1 font-display text-3xl font-bold">
+          {credentials.filter((c) => c.status === "verified").length}
+        </p>
         <p className="text-xs opacity-80">Credential đã xác thực · GPA {student.gpa}</p>
       </div>
 
@@ -336,7 +340,13 @@ function WalletScreen({ onOpen }: { onOpen: (c: Credential) => void }) {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-bold">Credential Wallet</h3>
-        <Button size="sm" onClick={() => { setAdding(!adding); setProgress(0); }}>
+        <Button
+          size="sm"
+          onClick={() => {
+            setAdding(!adding);
+            setProgress(0);
+          }}
+        >
           + Thêm hồ sơ
         </Button>
       </div>
@@ -358,11 +368,7 @@ function WalletScreen({ onOpen }: { onOpen: (c: Credential) => void }) {
           <ol className="mt-4 space-y-1.5">
             {pipeline.map((p, i) => (
               <li key={p} className="flex items-center gap-2 text-xs">
-                <span
-                  className={
-                    i < progress ? "text-success" : "text-muted-foreground"
-                  }
-                >
+                <span className={i < progress ? "text-success" : "text-muted-foreground"}>
                   {i < progress ? "✓" : "○"}
                 </span>
                 <span className={i < progress ? "font-medium" : "text-muted-foreground"}>{p}</span>
@@ -430,8 +436,12 @@ function CredentialDetail({ credential, onBack }: { credential: Credential; onBa
 
         <div className="grid grid-cols-3 gap-2">
           <Button size="sm">Chia sẻ</Button>
-          <Button size="sm" variant="secondary">Tạo QR</Button>
-          <Button size="sm" variant="outline">Kiểm tra</Button>
+          <Button size="sm" variant="secondary">
+            Tạo QR
+          </Button>
+          <Button size="sm" variant="outline">
+            Kiểm tra
+          </Button>
         </div>
       </div>
     </div>
@@ -439,7 +449,11 @@ function CredentialDetail({ credential, onBack }: { credential: Credential; onBa
 }
 
 function ShareScreen() {
-  const [picked, setPicked] = useState<string[]>(["VC-2026-000184", "VC-2026-000185", "VC-2025-004417"]);
+  const [picked, setPicked] = useState<string[]>([
+    "VC-2026-000184",
+    "VC-2026-000185",
+    "VC-2025-004417",
+  ]);
   const [generated, setGenerated] = useState(false);
 
   const toggle = (id: string) =>
@@ -454,7 +468,10 @@ function ShareScreen() {
         </p>
         <div className="mt-3 space-y-2">
           {credentials.map((c) => (
-            <label key={c.id} className="flex items-center gap-3 rounded-xl bg-muted/60 px-3 py-2 text-xs">
+            <label
+              key={c.id}
+              className="flex items-center gap-3 rounded-xl bg-muted/60 px-3 py-2 text-xs"
+            >
               <Checkbox checked={picked.includes(c.id)} onCheckedChange={() => toggle(c.id)} />
               <span className="flex-1">{c.title}</span>
             </label>
@@ -521,12 +538,18 @@ function AiScreen() {
             </div>
             <div className="mt-3 flex flex-wrap gap-1.5">
               {j.matched.map((m) => (
-                <span key={m} className="rounded-full bg-success/12 px-2 py-0.5 text-[11px] font-medium text-success">
+                <span
+                  key={m}
+                  className="rounded-full bg-success/12 px-2 py-0.5 text-[11px] font-medium text-success"
+                >
                   ✓ {m}
                 </span>
               ))}
               {j.missing.map((m) => (
-                <span key={m} className="rounded-full bg-warning/20 px-2 py-0.5 text-[11px] font-medium text-warning-foreground">
+                <span
+                  key={m}
+                  className="rounded-full bg-warning/20 px-2 py-0.5 text-[11px] font-medium text-warning-foreground"
+                >
                   △ {m}
                 </span>
               ))}
@@ -548,7 +571,9 @@ function AiScreen() {
                 <div key={s.skill}>
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-medium">{s.skill}</span>
-                    <span className={s.status === "Đạt" ? "text-success" : "text-warning-foreground"}>
+                    <span
+                      className={s.status === "Đạt" ? "text-success" : "text-warning-foreground"}
+                    >
                       {s.status === "Đạt" ? "✓" : "△"} {s.status}
                     </span>
                   </div>
@@ -580,10 +605,14 @@ function AiScreen() {
             </div>
             <ul className="mt-3 space-y-1 text-[11px]">
               {s.matched.map((m) => (
-                <li key={m} className="text-success">✓ {m}</li>
+                <li key={m} className="text-success">
+                  ✓ {m}
+                </li>
               ))}
               {s.missing.map((m) => (
-                <li key={m} className="text-warning-foreground">△ Còn thiếu: {m}</li>
+                <li key={m} className="text-warning-foreground">
+                  △ Còn thiếu: {m}
+                </li>
               ))}
             </ul>
           </div>
@@ -596,13 +625,19 @@ function AiScreen() {
             Hệ thống tập hợp các credential đã xác thực thành một bộ hồ sơ số duy nhất.
           </p>
           <ul className="mt-3 space-y-2 text-xs">
-            {["Bằng tốt nghiệp", "Bảng điểm", "GPA 3.62", "IELTS 7.5", "Chứng chỉ nghề nghiệp", "Thành tích NCKH", "Hoạt động ngoại khoá"].map(
-              (i) => (
-                <li key={i} className="flex items-center gap-2 rounded-xl bg-muted/60 px-3 py-2">
-                  <span className="text-success">✓</span> {i}
-                </li>
-              ),
-            )}
+            {[
+              "Bằng tốt nghiệp",
+              "Bảng điểm",
+              "GPA 3.62",
+              "IELTS 7.5",
+              "Chứng chỉ nghề nghiệp",
+              "Thành tích NCKH",
+              "Hoạt động ngoại khoá",
+            ].map((i) => (
+              <li key={i} className="flex items-center gap-2 rounded-xl bg-muted/60 px-3 py-2">
+                <span className="text-success">✓</span> {i}
+              </li>
+            ))}
           </ul>
           <Button className="mt-4 w-full" size="sm">
             Tạo hồ sơ du học
@@ -628,15 +663,23 @@ function PrivacyScreen() {
         <div className="mt-4 space-y-1.5 text-xs">
           <p className="font-semibold">Được xem</p>
           {["Bằng đại học", "GPA", "Chứng chỉ IELTS"].map((i) => (
-            <p key={i} className="text-success">✓ {i}</p>
+            <p key={i} className="text-success">
+              ✓ {i}
+            </p>
           ))}
           <p className="pt-2 font-semibold">Không được xem</p>
           {["CCCD", "Địa chỉ", "Thông tin không liên quan"].map((i) => (
-            <p key={i} className="text-muted-foreground">✕ {i}</p>
+            <p key={i} className="text-muted-foreground">
+              ✕ {i}
+            </p>
           ))}
         </div>
         <div className="mt-4 grid grid-cols-2 gap-2">
-          <Button size="sm" variant={allowed ? "secondary" : "default"} onClick={() => setAllowed(true)}>
+          <Button
+            size="sm"
+            variant={allowed ? "secondary" : "default"}
+            onClick={() => setAllowed(true)}
+          >
             Cho phép
           </Button>
           <Button size="sm" variant="outline" onClick={() => setAllowed(false)}>

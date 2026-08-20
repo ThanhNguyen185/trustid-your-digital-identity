@@ -29,14 +29,20 @@ export const submitKyc = createServerFn({ method: "POST" })
     const idPath = `${userId}/id-${stamp}.jpg`;
     const selfiePath = `${userId}/selfie-${stamp}.jpg`;
 
-    await supabase.storage.from("kyc").upload(idPath, id.bytes, { contentType: id.contentType, upsert: true });
+    await supabase.storage
+      .from("kyc")
+      .upload(idPath, id.bytes, { contentType: id.contentType, upsert: true });
     await supabase.storage
       .from("kyc")
       .upload(selfiePath, face.bytes, { contentType: face.contentType, upsert: true });
 
     const result = await runKycCheck(data.idImage, data.selfie);
     const status =
-      result.verdict === "verified" ? "verified" : result.verdict === "rejected" ? "rejected" : "pending";
+      result.verdict === "verified"
+        ? "verified"
+        : result.verdict === "rejected"
+          ? "rejected"
+          : "pending";
 
     await supabase.from("kyc_submissions").insert({
       user_id: userId,
@@ -116,7 +122,11 @@ export const analyzeCareer = createServerFn({ method: "POST" })
   .handler(async ({ context }) => {
     const { supabase, userId } = context;
     const [{ data: profile }, { data: creds }] = await Promise.all([
-      supabase.from("profiles").select("full_name, school, major, identity_status").eq("id", userId).maybeSingle(),
+      supabase
+        .from("profiles")
+        .select("full_name, school, major, identity_status")
+        .eq("id", userId)
+        .maybeSingle(),
       supabase
         .from("credentials")
         .select("title, cred_type, issuer, issued_at, detail, status")
@@ -152,7 +162,10 @@ export const getSharedProfile = createServerFn({ method: "GET" })
     const { data: creds } = await supabaseAdmin
       .from("credentials")
       .select("id, title, cred_type, issuer, issued_at, status, hash")
-      .in("id", link.credential_ids.length ? link.credential_ids : ["00000000-0000-0000-0000-000000000000"]);
+      .in(
+        "id",
+        link.credential_ids.length ? link.credential_ids : ["00000000-0000-0000-0000-000000000000"],
+      );
 
     const fields = new Set(link.fields);
     return {

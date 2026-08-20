@@ -80,7 +80,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "TrustID AI" },
       {
         name: "description",
-        content: "Nền tảng hạ tầng hồ sơ số xác thực cho sinh viên, trường đại học và doanh nghiệp.",
+        content:
+          "Nền tảng hạ tầng hồ sơ số xác thực cho sinh viên, trường đại học và doanh nghiệp.",
       },
       { property: "og:title", content: "TrustID AI" },
       {
